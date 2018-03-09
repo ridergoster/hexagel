@@ -11,8 +11,8 @@ while true
 
     echo -n -e "\x76\x77\x02$tempA" | spi-pipe -d /dev/spidev0.0
 
-    echo $message
+    logger $message
 
-    mosquitto_pub -h $serverName -t $topicName -m "$message"
+    mosquitto_pub -h $serverName -t $topicName -m "$message" 2>/dev/null
     sleep 1
 done
