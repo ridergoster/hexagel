@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 serverName="192.168.2.1"
 topicName="temperature_esgi"
 
@@ -7,12 +7,12 @@ while true
     temp=$(mpl115a2 | cut -d " " -f5)
     tempA=$(echo $temp | tr -d ".")
     date=$(date +"%y:%m:%d:%H:%M:%S")
-    message="$temp°C - $date"
+    message="$temp C ~ $date"
 
     echo -n -e "\x76\x77\x02$tempA" | spi-pipe -d /dev/spidev0.0
 
     echo $message
 
-    mosquitto_pub -h $serverName -t $topicName -m $message
+    mosquitto_pub -h $serverName -t $topicName -m "$message"
     sleep 1
 done
