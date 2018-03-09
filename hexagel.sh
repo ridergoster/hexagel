@@ -4,10 +4,10 @@ topicName="temperature_esgi"
 
 while true
   do
-    tempA=$(mpl115a2 -a)
-    temp=$(mpl115a2)
+    temp=$(mpl115a2 | cut -d " " -f5)
+    tempA=$(echo $temp | tr -d ".")
     date=$(date +"%y:%m:%d:%H:%M:%S")
-    message="$temp - $date"
+    message="$temp°C - $date"
 
     echo -n -e "\x76\x77\x02$tempA" | spi-pipe -d /dev/spidev0.0
 
