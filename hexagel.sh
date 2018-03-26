@@ -2,6 +2,8 @@
 serverName="192.168.2.1"
 topicName="temperature_esgi"
 
+udhcpc 2>/dev/null
+
 while true
   do
     temp=$(mpl115a2 | cut -d " " -f5)
